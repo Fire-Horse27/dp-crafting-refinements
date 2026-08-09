@@ -1,4 +1,4 @@
-package fire_horse27.template.mixin.client.datagen;
+package fire_horse27.template.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -356,9 +356,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('S', Items.COBBLESTONE)
                         .define('B', Items.BOW)
                         .define('R', Items.REDSTONE)
-                        .group("dispenser")
-                        .save(output, Identifier.fromNamespaceAndPath(MINECRAFT_ID,
-                                "dispenser").toString());
+                        .group("dispenser");
             }
         };
     }

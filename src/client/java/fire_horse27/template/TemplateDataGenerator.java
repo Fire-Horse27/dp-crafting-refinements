@@ -1,6 +1,6 @@
 package fire_horse27.template;
 
-import fire_horse27.template.mixin.client.datagen.ModRecipeProvider;
+import fire_horse27.template.datagen.ModRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
