@@ -15,13 +15,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"fire_horse27.template.Template"
+			"fire_horse27.craftingrefinements.CraftingRefinements"
 		],
 		"client": [
-			"fire_horse27.template.TemplateClient"
+			"fire_horse27.craftingrefinements.CraftingRefinementsClient"
 		],
 		"fabric-datagen": [
-			"fire_horse27.template.TemplateDataGenerator"
+			"fire_horse27.craftingrefinements.CraftingRefinementsDataGenerator"
 		]
 	},
 	"depends": {
