@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "template",
+	"id": "craftingrefinements",
 	"version": "${version}",
-	"name": "template",
+	"name": "craftingrefinements",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"Fire-Horse27"
