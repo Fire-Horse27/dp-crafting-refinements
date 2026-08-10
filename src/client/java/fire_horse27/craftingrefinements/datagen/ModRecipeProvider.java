@@ -1,4 +1,4 @@
-package fire_horse27.template.datagen;
+package fire_horse27.craftingrefinements.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -9,7 +9,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
@@ -356,7 +355,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('S', Items.COBBLESTONE)
                         .define('B', Items.BOW)
                         .define('R', Items.REDSTONE)
-                        .group("dispenser");
+                        .group("dispenser")
+                        .save(output, Identifier.fromNamespaceAndPath("toast",
+                                "dispenser").toString());
             }
         };
     }

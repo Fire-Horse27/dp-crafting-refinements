@@ -1,10 +1,10 @@
-package fire_horse27.template;
+package fire_horse27.craftingrefinements;
 
-import fire_horse27.template.datagen.ModRecipeProvider;
+import fire_horse27.craftingrefinements.datagen.ModRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
-public class TemplateDataGenerator implements DataGeneratorEntrypoint {
+public class CraftingRefinementsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
