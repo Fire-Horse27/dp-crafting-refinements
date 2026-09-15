@@ -4,10 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -335,18 +332,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
                                 "dispenser_dropper").toString());
 
-                shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
-                        .pattern(" WS")
-                        .pattern("WDS")
-                        .pattern(" WS")
-                        .define('S', Items.STRING)
-                        .define('W', Items.STICK)
-                        .define('D', Items.DROPPER)
-                        .group("dispenser")
-                        .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
-                        .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
-                        .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
-                                "dispenser_stackable").toString());
+                new ShapedRecipeBuilderWrapper(
+                        shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
+                                .pattern(" WS")
+                                .pattern("WDS")
+                                .pattern(" WS")
+                                .define('S', Items.STRING)
+                                .define('W', Items.STICK)
+                                .define('D', Items.DROPPER)
+                                .group("dispenser")
+                                .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
+                                .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
+                ).saveWithoutAdvancement(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
+                        "dispenser_stackable").toString());
 
                 shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
                         .pattern("SSS")
