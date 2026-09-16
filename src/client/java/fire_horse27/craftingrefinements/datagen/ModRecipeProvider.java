@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
@@ -44,6 +45,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static final List<Item> WOOL_STAIRS;
     private static final List<Item> CONCRETE;
     private static final List<Item> CONCRETE_STAIRS;
+    private static final List<TagKey> CORALS;
+    private static final List<Item> CORAL_BLOCKS;
 
     private static final String MINECRAFT_ID = "minecraft";
     private static final String BLAST_BUFF_ID = "crblastbuff";
@@ -53,6 +56,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static final String CONSISTENCY_ID = "crconsistency";
 
     static {
+        CORALS = List.of(
+                ModItemTagProvider.BRAIN_CORALS,
+                ModItemTagProvider.BUBBLE_CORALS,
+                ModItemTagProvider.FIRE_CORALS,
+                ModItemTagProvider.HORN_CORALS,
+                ModItemTagProvider.TUBE_CORALS,
+                ModItemTagProvider.DEAD_BRAIN_CORALS,
+                ModItemTagProvider.DEAD_BUBBLE_CORALS,
+                ModItemTagProvider.DEAD_FIRE_CORALS,
+                ModItemTagProvider.DEAD_HORN_CORALS,
+                ModItemTagProvider.DEAD_TUBE_CORALS
+        );
+
         List<Item> list = new ArrayList<>();
 
         list.addAll(List.of(
@@ -277,6 +293,21 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ));
         STAIRS = List.copyOf(list);
 
+        list.clear();
+        list.addAll(List.of(
+                Items.BRAIN_CORAL_BLOCK,
+                Items.BUBBLE_CORAL_BLOCK,
+                Items.FIRE_CORAL_BLOCK,
+                Items.HORN_CORAL_BLOCK,
+                Items.TUBE_CORAL_BLOCK,
+                Items.DEAD_BRAIN_CORAL_BLOCK,
+                Items.DEAD_BUBBLE_CORAL_BLOCK,
+                Items.DEAD_FIRE_CORAL_BLOCK,
+                Items.DEAD_HORN_CORAL_BLOCK,
+                Items.DEAD_TUBE_CORAL_BLOCK
+        ));
+        CORAL_BLOCKS = List.copyOf(list);
+
         COPPER = Items.COPPER_BLOCK.asList();
         CUT_COPPER = Items.CUT_COPPER.asList();
         CUT_COPPER_STAIRS = Items.CUT_COPPER_STAIRS.asList();
@@ -447,7 +478,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         ).saveWithoutAdvancement(output, WOODEN_TRAPDOORS.get(i).toString());
                 }
 
-                //**** IRON & COPPER CONSISTENCY ****//
+                //**** COPPER CONSISTENCY ****//
                 {
                     new ShapedRecipeBuilderWrapper(
                             shaped(RecipeCategory.REDSTONE, Items.COPPER_TRAPDOOR.weathering().unaffected(), 2)
@@ -655,6 +686,37 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     .pattern("##")
                                     .define('#', Items.RED_SAND)
                     ).saveWithoutAdvancement(output, Items.RED_SANDSTONE.toString());
+
+                    shaped(RecipeCategory.BUILDING_BLOCKS, Items.CALCITE, 2)
+                            .pattern("##")
+                            .pattern("##")
+                            .define('#', ModItemTagProvider.DEAD_CORAL_BLOCKS)
+                            .unlockedBy("has_dead_coral_blocks", has(ModItemTagProvider.DEAD_CORAL_BLOCKS))
+                            .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
+                                    "calcite").toString());
+
+                    for (int i = 0; i < CORALS.size(); i++)
+                            shaped(RecipeCategory.DECORATIONS, CORAL_BLOCKS.get(i))
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', CORALS.get(i))
+                                    .group("coral_blocks")
+                                    .unlockedBy("has_corals", has(CORALS.get(i)))
+                                    .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
+                                            CORAL_BLOCKS.get(i).toString().substring(10)).toString());
+                }
+
+                //**** STONECUTTER SOLUTIONS ****//
+                {
+                    for (int i = 0; i < CORALS.size(); i++)
+                        shaped(RecipeCategory.DECORATIONS, CORAL_BLOCKS.get(i))
+                                .pattern("##")
+                                .pattern("##")
+                                .define('#', CORALS.get(i))
+                                .group("coral_blocks")
+                                .unlockedBy("has_corals", has(CORALS.get(i)))
+                                .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
+                                        CORAL_BLOCKS.get(i).toString().substring(10)).toString());
                 }
             }
         };
