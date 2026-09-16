@@ -1,18 +1,20 @@
 package fire_horse27.craftingrefinements.datagen;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
-
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jspecify.annotations.NonNull;
 
@@ -30,22 +32,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static final List<Item> LOGS;
     private static final List<Item> STAIRS;
     private static final List<Item> GATES;
-    private static final List<Item> TRAPDOORS;
+    private static final List<Item> WOODEN_TRAPDOORS;
     private static final List<Item> WOOD;
+    private static final List<Item> COPPER;
+    private static final List<Item> CUT_COPPER;
+    private static final List<Item> CUT_COPPER_STAIRS;
+    private static final List<Item> COPPER_TRAPDOORS;
+    private static final List<Item> LIGHTNING_RODS;
+    private static final List<Item> COPPER_BARS;
+    private static final List<Item> WOOL;
+    private static final List<Item> WOOL_STAIRS;
+    private static final List<Item> CONCRETE;
+    private static final List<Item> CONCRETE_STAIRS;
 
     private static final String MINECRAFT_ID = "minecraft";
     private static final String BLAST_BUFF_ID = "crblastbuff";
     private static final String DISPENSER_ID = "crdispenser";
-    private static final String CALCITE_ID = "crcalcite";
-    private static final String CORAL_ID = "crcoral";
-    private static final String TUFF_ID = "crtuff";
-    private static final String CINNABAR_ID = "crcinnabar";
-    private static final String BAMBOO_ID = "crbamboo";
+    private static final String ROCK_ID = "crrock";
     private static final String STONECUTTER_ID = "crstonecutter";
-    private static final String TORCHES_ID = "crtorches";
-    private static final String CHAINS_ID = "crchains";
-    private static final String CONSISTANCY_ID = "crconsistancy";
-    private static final String SANDSTONE_ID = "crsandstone";
+    private static final String CONSISTENCY_ID = "crconsistency";
 
     static {
         List<Item> list = new ArrayList<>();
@@ -60,6 +65,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_PLANKS,
                 Items.CHERRY_PLANKS,
                 Items.PALE_OAK_PLANKS,
+                Items.POPLAR_PLANKS,
                 Items.BAMBOO_PLANKS,
                 Items.CRIMSON_PLANKS,
                 Items.WARPED_PLANKS
@@ -126,6 +132,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_LOG,
                 Items.CHERRY_LOG,
                 Items.PALE_OAK_LOG,
+                Items.POPLAR_LOG,
                 Items.CRIMSON_STEM,
                 Items.WARPED_STEM,
                 Items.STRIPPED_OAK_LOG,
@@ -137,6 +144,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.STRIPPED_MANGROVE_LOG,
                 Items.STRIPPED_CHERRY_LOG,
                 Items.STRIPPED_PALE_OAK_LOG,
+                Items.STRIPPED_POPLAR_LOG,
                 Items.STRIPPED_CRIMSON_STEM,
                 Items.STRIPPED_WARPED_STEM
         ));
@@ -153,6 +161,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_FENCE_GATE,
                 Items.CHERRY_FENCE_GATE,
                 Items.PALE_OAK_FENCE_GATE,
+                Items.POPLAR_FENCE_GATE,
                 Items.BAMBOO_FENCE_GATE,
                 Items.CRIMSON_FENCE_GATE,
                 Items.WARPED_FENCE_GATE
@@ -170,11 +179,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_TRAPDOOR,
                 Items.CHERRY_TRAPDOOR,
                 Items.PALE_OAK_TRAPDOOR,
+                Items.POPLAR_TRAPDOOR,
                 Items.BAMBOO_TRAPDOOR,
                 Items.CRIMSON_TRAPDOOR,
                 Items.WARPED_TRAPDOOR
         ));
-        TRAPDOORS = List.copyOf(list);
+        WOODEN_TRAPDOORS = List.copyOf(list);
 
         list.clear();
         list.addAll(List.of(
@@ -187,6 +197,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_WOOD,
                 Items.CHERRY_WOOD,
                 Items.PALE_OAK_WOOD,
+                Items.POPLAR_WOOD,
                 Items.CRIMSON_HYPHAE,
                 Items.WARPED_HYPHAE,
                 Items.STRIPPED_OAK_WOOD,
@@ -198,6 +209,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.STRIPPED_MANGROVE_WOOD,
                 Items.STRIPPED_CHERRY_WOOD,
                 Items.STRIPPED_PALE_OAK_WOOD,
+                Items.STRIPPED_POPLAR_WOOD,
                 Items.STRIPPED_CRIMSON_HYPHAE,
                 Items.STRIPPED_WARPED_HYPHAE
         ));
@@ -214,6 +226,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.MANGROVE_STAIRS,
                 Items.CHERRY_STAIRS,
                 Items.PALE_OAK_STAIRS,
+                Items.POPLAR_STAIRS,
                 Items.BAMBOO_STAIRS,
                 Items.CRIMSON_STAIRS,
                 Items.WARPED_STAIRS,
@@ -263,6 +276,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.SMOOTH_QUARTZ_STAIRS
         ));
         STAIRS = List.copyOf(list);
+
+        COPPER = Items.COPPER_BLOCK.asList();
+        CUT_COPPER = Items.CUT_COPPER.asList();
+        CUT_COPPER_STAIRS = Items.CUT_COPPER_STAIRS.asList();
+        COPPER_TRAPDOORS = Items.COPPER_TRAPDOOR.asList();
+        COPPER_BARS = Items.COPPER_BARS.asList();
+        LIGHTNING_RODS = Items.LIGHTNING_ROD.asList();
+
+        WOOL = Items.WOOL.asList();
+        WOOL_STAIRS = Items.WOOL_STAIRS.asList();
+
+        CONCRETE = Items.CONCRETE.asList();
+        CONCRETE_STAIRS = Items.CONCRETE_STAIRS.asList();
     }
 
     @Override
@@ -274,70 +300,49 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
 
-                /*
-                shapeless(RecipeCategory.BUILDING_BLOCKS, Items.DIRT, 1)
-                        .requires(Items.COARSE_DIRT)
-                        .unlockedBy(getHasName(Items.COARSE_DIRT), has(Items.COARSE_DIRT))
-                        .save(output, Identifier.fromNamespaceAndPath(MINECRAFT_ID, "string").toString());
-
-                shaped(RecipeCategory.MISC, Items.CRAFTING_TABLE, 4)
-                        .pattern("ll")
-                        .pattern("ll")
-                        .define('l', ItemTags.LOGS)
-                        .group("multi_bench")
-                        .unlockedBy(getHasName(Items.CRAFTING_TABLE), has(Items.CRAFTING_TABLE))
-                        .save(output, Identifier.fromNamespaceAndPath(MINECRAFT_ID, "string").toString());
-
-                SimpleCookingRecipeBuilder.blasting(
-                        Ingredient.of(Items.WATER_BUCKET), // Input
-                        RecipeCategory.MISC, // Recipe Category
-                        CookingBookCategory.BLOCKS, // Cooking Book Category
-                        Items.BUCKET, // Output
-                        0.35f, // Experience
-                        100 // Cooking Time
-                );
-                */
-
                 //**** Blast Buff ****//
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_COPPER_BLOCK), RecipeCategory.MISC,
-                                CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3f,
-                                800)
-                        .group("copper_block")
-                        .unlockedBy(getHasName(Items.RAW_COPPER_BLOCK), has(Items.RAW_COPPER_BLOCK))
-                        .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
-                                "copper_block_from_blasting_raw_copper_block").toString());
+                {
+                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_COPPER_BLOCK), RecipeCategory.MISC,
+                                    CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3f,
+                                    800)
+                            .group("copper_block")
+                            .unlockedBy(getHasName(Items.RAW_COPPER_BLOCK), has(Items.RAW_COPPER_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
+                                    "copper_block_from_blasting_raw_copper_block").toString());
 
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_GOLD_BLOCK), RecipeCategory.MISC,
-                                CookingBookCategory.BLOCKS, Items.GOLD_BLOCK, 6.3f, 800)
-                        .group("gold_block")
-                        .unlockedBy(getHasName(Items.RAW_GOLD_BLOCK), has(Items.RAW_GOLD_BLOCK))
-                        .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
-                                "gold_block_from_blasting_raw_gold_block").toString());
+                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_GOLD_BLOCK), RecipeCategory.MISC,
+                                    CookingBookCategory.BLOCKS, Items.GOLD_BLOCK, 6.3f, 800)
+                            .group("gold_block")
+                            .unlockedBy(getHasName(Items.RAW_GOLD_BLOCK), has(Items.RAW_GOLD_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
+                                    "gold_block_from_blasting_raw_gold_block").toString());
 
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_IRON_BLOCK), RecipeCategory.MISC,
-                                CookingBookCategory.BLOCKS, Items.IRON_BLOCK, 6.3f, 800)
-                        .group("iron_block")
-                        .unlockedBy(getHasName(Items.RAW_IRON_BLOCK), has(Items.RAW_IRON_BLOCK))
-                        .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
-                                "iron_block_from_blasting_raw_iron_block").toString());
+                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_IRON_BLOCK), RecipeCategory.MISC,
+                                    CookingBookCategory.BLOCKS, Items.IRON_BLOCK, 6.3f, 800)
+                            .group("iron_block")
+                            .unlockedBy(getHasName(Items.RAW_IRON_BLOCK), has(Items.RAW_IRON_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
+                                    "iron_block_from_blasting_raw_iron_block").toString());
 
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.SAND), RecipeCategory.MISC,
-                                CookingBookCategory.BLOCKS, Items.GLASS, 0.1f, 100)
-                        .group("glass_block")
-                        .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
-                        .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
-                                "glass_from_blasting_sand").toString());
+                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.SAND), RecipeCategory.MISC,
+                                    CookingBookCategory.BLOCKS, Items.GLASS, 0.1f, 100)
+                            .group("glass_block")
+                            .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
+                            .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
+                                    "glass_from_blasting_sand").toString());
+                }
 
                 //**** DROPPER TO DISPENSER ****//
-                shapeless(RecipeCategory.REDSTONE, Items.DISPENSER)
-                        .requires(Items.DROPPER)
-                        .requires(Items.BOW)
-                        .group("dispenser")
-                        .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
-                        .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
-                        .unlockedBy(getHasName(Items.BOW), has(Items.BOW))
-                        .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
-                                "dispenser_dropper").toString());
+                {
+                    shapeless(RecipeCategory.REDSTONE, Items.DISPENSER)
+                            .requires(Items.DROPPER)
+                            .requires(Items.BOW)
+                            .group("dispenser")
+                            .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
+                            .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
+                            .unlockedBy(getHasName(Items.BOW), has(Items.BOW))
+                            .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
+                                    "dispenser_dropper").toString());
 
                     shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
                             .pattern(" WS")
@@ -352,17 +357,305 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
                                     "dispenser_stackable").toString());
 
-                new ShapedRecipeBuilderWrapper(
-                    shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
-                            .pattern("SSS")
-                            .pattern("SBS")
-                            .pattern("SRS")
-                            .define('S', Items.COBBLESTONE)
-                            .define('B', Items.BOW)
-                            .define('R', Items.REDSTONE)
-                            .group("dispenser")
-                ).saveWithoutAdvancement(output, Identifier.fromNamespaceAndPath("minecraft",
-                                "dispenser").toString());
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
+                                    .pattern("SSS")
+                                    .pattern("SBS")
+                                    .pattern("SRS")
+                                    .define('S', Items.COBBLESTONE)
+                                    .define('B', Items.BOW)
+                                    .define('R', Items.REDSTONE)
+                                    .group("dispenser")
+                    ).saveWithoutAdvancement(output, Identifier.fromNamespaceAndPath(MINECRAFT_ID,
+                            "dispenser").toString());
+                }
+
+                //**** MORE GATES ****//
+                {
+                    for (int i = 0; i < PLANKS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.REDSTONE, GATES.get(i), 2)
+                                        .pattern("#W#")
+                                        .pattern("#W#")
+                                        .define('#', Items.STICK)
+                                        .define('W', PLANKS.get(i))
+                                        .group("wooden_fence_gate")
+                        ).saveWithoutAdvancement(output, GATES.get(i).toString());
+                }
+
+                //**** MORE STAIRS ****//
+                {
+                    for (int i = 0; i < PLANKS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, STAIRS.get(i), 6)
+                                        .pattern("#  ")
+                                        .pattern("## ")
+                                        .pattern("###")
+                                        .define('#', PLANKS.get(i))
+                                        .group("wooden_stairs")
+                        ).saveWithoutAdvancement(output, STAIRS.get(i).toString());
+
+                    for (int i = 0; i < MATERIALS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, STAIRS.get(i + PLANKS.size()), 6)
+                                        .pattern("#  ")
+                                        .pattern("## ")
+                                        .pattern("###")
+                                        .define('#', MATERIALS.get(i))
+                        ).saveWithoutAdvancement(output, STAIRS.get(i + PLANKS.size()).toString());
+
+                    for (int i = 0; i < CUT_COPPER.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, CUT_COPPER_STAIRS.get(i), 6)
+                                        .pattern("#  ")
+                                        .pattern("## ")
+                                        .pattern("###")
+                                        .define('#', CUT_COPPER.get(i))
+                                        .group("cut_copper_stairs")
+                        ).saveWithoutAdvancement(output, CUT_COPPER_STAIRS.get(i).toString());
+
+                    for (int i = 0; i < WOOL.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOL_STAIRS.get(i), 6)
+                                        .pattern("#  ")
+                                        .pattern("## ")
+                                        .pattern("###")
+                                        .define('#', WOOL.get(i))
+                                        .group("woolen_stairs")
+                        ).saveWithoutAdvancement(output, WOOL_STAIRS.get(i).toString());
+
+                    for (int i = 0; i < CONCRETE.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, CONCRETE_STAIRS.get(i), 6)
+                                        .pattern("#  ")
+                                        .pattern("## ")
+                                        .pattern("###")
+                                        .define('#', CONCRETE.get(i))
+                                        .group("concrete_stairs")
+                        ).saveWithoutAdvancement(output, CONCRETE_STAIRS.get(i).toString());
+                }
+
+                //**** MORE WOODEN TRAPDOORS ****//
+                {
+                    for (int i = 0; i < PLANKS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.REDSTONE, WOODEN_TRAPDOORS.get(i), 6)
+                                        .pattern("###")
+                                        .pattern("###")
+                                        .define('#', PLANKS.get(i))
+                                        .group("wooden_trapdoors")
+                        ).saveWithoutAdvancement(output, WOODEN_TRAPDOORS.get(i).toString());
+                }
+
+                //**** IRON & COPPER CONSISTENCY ****//
+                {
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.COPPER_TRAPDOOR.weathering().unaffected(), 2)
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .define('#', Items.COPPER_INGOT)
+                    ).saveWithoutAdvancement(output, Items.COPPER_TRAPDOOR.weathering().unaffected().toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.IRON_TRAPDOOR, 2)
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .define('#', Items.IRON_INGOT)
+                    ).saveWithoutAdvancement(output, Items.IRON_TRAPDOOR.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.COPPER_BARS.weathering().unaffected(), 16)
+                                    .pattern("# #")
+                                    .pattern("# #")
+                                    .pattern("# #")
+                                    .define('#', Items.COPPER_INGOT)
+                    ).saveWithoutAdvancement(output, Items.COPPER_BARS.weathering().unaffected().toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.IRON_BARS, 16)
+                                    .pattern("# #")
+                                    .pattern("# #")
+                                    .pattern("# #")
+                                    .define('#', Items.IRON_INGOT)
+                    ).saveWithoutAdvancement(output, Items.IRON_BARS.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.COPPER_DOOR.weathering().unaffected(), 1)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.COPPER_INGOT)
+                    ).saveWithoutAdvancement(output, Items.COPPER_DOOR.weathering().unaffected().toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.IRON_DOOR, 1)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.IRON_INGOT)
+                    ).saveWithoutAdvancement(output, Items.IRON_DOOR.toString());
+                }
+
+                //**** MORE WOOD ****//
+                {
+                    for (int i = 0; i < LOGS.size()/2; i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
+                                        .pattern("##")
+                                        .pattern("##")
+                                        .define('#', LOGS.get(i))
+                                        .group("bark")
+                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
+
+                    for (int i = LOGS.size()/2 + 1; i < LOGS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
+                                        .pattern("##")
+                                        .pattern("##")
+                                        .define('#', LOGS.get(i))
+                                        .group("stripped")
+                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
+                }
+
+                //**** MORE CHAINS ****//
+                {
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.COPPER_CHAIN.weathering().unaffected(), 4)
+                                    .pattern("N")
+                                    .pattern("I")
+                                    .pattern("N")
+                                    .define('I', Items.COPPER_INGOT)
+                                    .define('N', Items.COPPER_NUGGET)
+                    ).saveWithoutAdvancement(output, Items.COPPER_CHAIN.weathering().unaffected().toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.IRON_CHAIN, 4)
+                                    .pattern("N")
+                                    .pattern("I")
+                                    .pattern("N")
+                                    .define('I', Items.IRON_INGOT)
+                                    .define('N', Items.IRON_NUGGET)
+                    ).saveWithoutAdvancement(output, Items.IRON_CHAIN.toString());
+                }
+
+                //**** CONSISTENCY ****//
+                {
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_PLANKS, 4)
+                                    .pattern("#")
+                                    .pattern("#")
+                                    .define('#', ItemTags.BAMBOO_BLOCKS)
+                    ).saveWithoutAdvancement(output, Items.BAMBOO_PLANKS.toString());
+
+                    shapeless(RecipeCategory.MISC, Items.BAMBOO, 9)
+                            .requires(Items.BAMBOO_BLOCK)
+                            .unlockedBy(getHasName(Items.BAMBOO_BLOCK), has(Items.BAMBOO_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "bamboo").toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.HONEYCOMB_BLOCK)
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .define('#', Items.HONEYCOMB)
+                    ).saveWithoutAdvancement(output, Items.HONEYCOMB_BLOCK.toString());
+
+                    shapeless(RecipeCategory.MISC, Items.HONEYCOMB, 9)
+                            .requires(Items.HONEYCOMB_BLOCK)
+                            .unlockedBy(getHasName(Items.HONEYCOMB_BLOCK), has(Items.HONEYCOMB_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "honeycomb").toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.REDSTONE, Items.REDSTONE_TORCH, 4)
+                                    .pattern("#")
+                                    .pattern("X")
+                                    .define('#', Items.REDSTONE)
+                                    .define('X', Items.STICK)
+                    ).saveWithoutAdvancement(output, Items.REDSTONE_TORCH.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.POTENT_SULFUR)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.SULFUR)
+                    ).saveWithoutAdvancement(output, Items.POTENT_SULFUR.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.NETHER_WART_BLOCK)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.NETHER_WART)
+                    ).saveWithoutAdvancement(output, Items.NETHER_WART_BLOCK.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.DECORATIONS, Items.PACKED_ICE)
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .pattern("###")
+                                    .define('#', Items.ICE)
+                                    .group("packed_ice")
+                    ).saveWithoutAdvancement(output, Items.PACKED_ICE.toString());
+
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_ICE, 9)
+                            .requires(Items.BLUE_ICE)
+                            .group("packed_ice")
+                            .unlockedBy(getHasName(Items.BLUE_ICE), has(Items.BLUE_ICE))
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "packed_ice").toString());
+
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 9)
+                            .requires(Items.PACKED_ICE)
+                            .group("ice")
+                            .unlockedBy(getHasName(Items.PACKED_ICE), has(Items.PACKED_ICE))
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "ice_from_packed_ice").toString());
+
+                    shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE)
+                            .pattern("##")
+                            .pattern("##")
+                            .define('#', Items.SNOW_BLOCK)
+                            .group("ice")
+                            .unlockedBy(getHasName(Items.SNOW_BLOCK), has(Items.SNOW_BLOCK))
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "ice_from_snow_blocks").toString());
+                }
+
+                //**** ROCK RECIPES ****//
+                {
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, Items.TUFF, 2)
+                            .requires(Items.ANDESITE)
+                            .requires(Items.DIORITE)
+                            .unlockedBy(getHasName(Items.ANDESITE), has(Items.ANDESITE))
+                            .unlockedBy(getHasName(Items.DIORITE), has(Items.DIORITE))
+                            .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
+                                    "tuff").toString());
+
+                    shaped(RecipeCategory.BUILDING_BLOCKS, Items.CINNABAR, 2)
+                            .pattern("#S")
+                            .pattern("S#")
+                            .define('#', Items.NETHERRACK)
+                            .define('S', Items.SULFUR_SPIKE)
+                            .unlockedBy(getHasName(Items.NETHERRACK), has(Items.NETHERRACK))
+                            .unlockedBy(getHasName(Items.SULFUR_SPIKE), has(Items.SULFUR_SPIKE))
+                            .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
+                                    "cinnabar").toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.SAND)
+                    ).saveWithoutAdvancement(output, Items.SANDSTONE.toString());
+
+                    new ShapedRecipeBuilderWrapper(
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
+                                    .pattern("##")
+                                    .pattern("##")
+                                    .define('#', Items.RED_SAND)
+                    ).saveWithoutAdvancement(output, Items.RED_SANDSTONE.toString());
+                }
             }
         };
     }
