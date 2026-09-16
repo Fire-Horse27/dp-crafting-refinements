@@ -1,15 +1,20 @@
 package fire_horse27.craftingrefinements.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.world.item.crafting.Recipe;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -261,8 +266,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        return new RecipeProvider(registries, output) {
+    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries,
+                                                           @NonNull BootstrapContext<Recipe<?>> recipes,
+                                                           @NonNull BootstrapContext<Advancement> advancements) {
+        return new RecipeProvider(recipes, advancements) {
             @Override
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
@@ -293,8 +300,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 //**** Blast Buff ****//
                 SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_COPPER_BLOCK), RecipeCategory.MISC,
-                        CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3f,
-                        800)
+                                CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3f,
+                                800)
                         .group("copper_block")
                         .unlockedBy(getHasName(Items.RAW_COPPER_BLOCK), has(Items.RAW_COPPER_BLOCK))
                         .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
@@ -332,36 +339,41 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
                                 "dispenser_dropper").toString());
 
-                new ShapedRecipeBuilderWrapper(
-                        shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
-                                .pattern(" WS")
-                                .pattern("WDS")
-                                .pattern(" WS")
-                                .define('S', Items.STRING)
-                                .define('W', Items.STICK)
-                                .define('D', Items.DROPPER)
-                                .group("dispenser")
-                                .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
-                                .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
-                ).saveWithoutAdvancement(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
-                        "dispenser_stackable").toString());
+                    shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
+                            .pattern(" WS")
+                            .pattern("WDS")
+                            .pattern(" WS")
+                            .define('S', Items.STRING)
+                            .define('W', Items.STICK)
+                            .define('D', Items.DROPPER)
+                            .group("dispenser")
+                            .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
+                            .unlockedBy(getHasName(Items.DISPENSER), has(Items.DISPENSER))
+                            .save(output, Identifier.fromNamespaceAndPath(DISPENSER_ID,
+                                    "dispenser_stackable").toString());
 
-                shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
-                        .pattern("SSS")
-                        .pattern("SBS")
-                        .pattern("SRS")
-                        .define('S', Items.COBBLESTONE)
-                        .define('B', Items.BOW)
-                        .define('R', Items.REDSTONE)
-                        .group("dispenser")
-                        .save(output, Identifier.fromNamespaceAndPath("toast",
+                new ShapedRecipeBuilderWrapper(
+                    shaped(RecipeCategory.REDSTONE, Items.DISPENSER)
+                            .pattern("SSS")
+                            .pattern("SBS")
+                            .pattern("SRS")
+                            .define('S', Items.COBBLESTONE)
+                            .define('B', Items.BOW)
+                            .define('R', Items.REDSTONE)
+                            .group("dispenser")
+                ).saveWithoutAdvancement(output, Identifier.fromNamespaceAndPath("minecraft",
                                 "dispenser").toString());
             }
         };
     }
 
     @Override
-    public String getName() {
+    protected Identifier getRecipeIdentifier(Identifier identifier) {
+        return Identifier.fromNamespaceAndPath(identifier.getNamespace(), identifier.getPath());
+    }
+
+    @Override
+    public @NonNull String getName() {
         return "Crafting Refinements Recipes";
     }
 }
