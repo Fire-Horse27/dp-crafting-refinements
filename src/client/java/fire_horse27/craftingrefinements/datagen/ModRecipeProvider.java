@@ -414,6 +414,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             @Override
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
+                new ModBrewingProvider(this.output).buildRecipes();
 
                 //**** Blast Buff ****//
                 {

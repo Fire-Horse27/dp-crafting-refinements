@@ -1,5 +1,6 @@
 package fire_horse27.craftingrefinements;
 
+import fire_horse27.craftingrefinements.datagen.ModBrewingProvider;
 import fire_horse27.craftingrefinements.datagen.ModItemTagProvider;
 import fire_horse27.craftingrefinements.datagen.ModRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
