@@ -4,10 +4,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.ItemLike;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -34,7 +37,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static final List<Item> STAIRS;
     private static final List<Item> GATES;
     private static final List<Item> WOODEN_TRAPDOORS;
+    private static final List<Item> WOODEN_SLABS;
+    private static final List<Item> WOODEN_PRESSURE_PLATES;
+    private static final List<Item> WOODEN_BUTTONS;
+    private static final List<Item> WOODEN_STAIRS;
     private static final List<Item> WOOD;
+    private static final List<TagKey> WOOD_LOGS;
     private static final List<Item> COPPER;
     private static final List<Item> CUT_COPPER;
     private static final List<Item> CUT_COPPER_STAIRS;
@@ -43,6 +51,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static final List<Item> COPPER_BARS;
     private static final List<Item> WOOL;
     private static final List<Item> WOOL_STAIRS;
+    private static final List<Item> WOOL_SLABS;
     private static final List<Item> CONCRETE;
     private static final List<Item> CONCRETE_STAIRS;
     private static final List<TagKey> CORALS;
@@ -82,9 +91,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.CHERRY_PLANKS,
                 Items.PALE_OAK_PLANKS,
                 Items.POPLAR_PLANKS,
-                Items.BAMBOO_PLANKS,
                 Items.CRIMSON_PLANKS,
-                Items.WARPED_PLANKS
+                Items.WARPED_PLANKS,
+                Items.BAMBOO_PLANKS
         ));
         PLANKS = List.copyOf(list);
 
@@ -178,9 +187,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.CHERRY_FENCE_GATE,
                 Items.PALE_OAK_FENCE_GATE,
                 Items.POPLAR_FENCE_GATE,
-                Items.BAMBOO_FENCE_GATE,
                 Items.CRIMSON_FENCE_GATE,
-                Items.WARPED_FENCE_GATE
+                Items.WARPED_FENCE_GATE,
+                Items.BAMBOO_FENCE_GATE
         ));
         GATES = List.copyOf(list);
 
@@ -196,9 +205,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.CHERRY_TRAPDOOR,
                 Items.PALE_OAK_TRAPDOOR,
                 Items.POPLAR_TRAPDOOR,
-                Items.BAMBOO_TRAPDOOR,
                 Items.CRIMSON_TRAPDOOR,
-                Items.WARPED_TRAPDOOR
+                Items.WARPED_TRAPDOOR,
+                Items.BAMBOO_TRAPDOOR
         ));
         WOODEN_TRAPDOORS = List.copyOf(list);
 
@@ -231,6 +240,75 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ));
         WOOD = List.copyOf(list);
 
+        WOOD_LOGS = List.of(
+                ItemTags.OAK_LOGS,
+                ItemTags.SPRUCE_LOGS,
+                ItemTags.BIRCH_LOGS,
+                ItemTags.JUNGLE_LOGS,
+                ItemTags.ACACIA_LOGS,
+                ItemTags.DARK_OAK_LOGS,
+                ItemTags.MANGROVE_LOGS,
+                ItemTags.CHERRY_LOGS,
+                ItemTags.PALE_OAK_LOGS,
+                ItemTags.POPLAR_LOGS,
+                ItemTags.CRIMSON_STEMS,
+                ItemTags.WARPED_STEMS
+        );
+
+        list.clear();
+        list.addAll(List.of(
+                Items.OAK_SLAB,
+                Items.SPRUCE_SLAB,
+                Items.BIRCH_SLAB,
+                Items.JUNGLE_SLAB,
+                Items.ACACIA_SLAB,
+                Items.DARK_OAK_SLAB,
+                Items.MANGROVE_SLAB,
+                Items.CHERRY_SLAB,
+                Items.PALE_OAK_SLAB,
+                Items.POPLAR_SLAB,
+                Items.CRIMSON_SLAB,
+                Items.WARPED_SLAB,
+                Items.BAMBOO_SLAB
+                ));
+        WOODEN_SLABS = List.copyOf(list);
+
+        list.clear();
+        list.addAll(List.of(
+                Items.OAK_PRESSURE_PLATE,
+                Items.SPRUCE_PRESSURE_PLATE,
+                Items.BIRCH_PRESSURE_PLATE,
+                Items.JUNGLE_PRESSURE_PLATE,
+                Items.ACACIA_PRESSURE_PLATE,
+                Items.DARK_OAK_PRESSURE_PLATE,
+                Items.MANGROVE_PRESSURE_PLATE,
+                Items.CHERRY_PRESSURE_PLATE,
+                Items.PALE_OAK_PRESSURE_PLATE,
+                Items.POPLAR_PRESSURE_PLATE,
+                Items.CRIMSON_PRESSURE_PLATE,
+                Items.WARPED_PRESSURE_PLATE,
+                Items.BAMBOO_PRESSURE_PLATE
+        ));
+        WOODEN_PRESSURE_PLATES = List.copyOf(list);
+
+        list.clear();
+        list.addAll(List.of(
+                Items.OAK_BUTTON,
+                Items.SPRUCE_BUTTON,
+                Items.BIRCH_BUTTON,
+                Items.JUNGLE_BUTTON,
+                Items.ACACIA_BUTTON,
+                Items.DARK_OAK_BUTTON,
+                Items.MANGROVE_BUTTON,
+                Items.CHERRY_BUTTON,
+                Items.PALE_OAK_BUTTON,
+                Items.POPLAR_BUTTON,
+                Items.CRIMSON_BUTTON,
+                Items.WARPED_BUTTON,
+                Items.BAMBOO_BUTTON
+        ));
+        WOODEN_BUTTONS = List.copyOf(list);
+
         list.clear();
         list.addAll(List.of(
                 Items.OAK_STAIRS,
@@ -243,9 +321,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Items.CHERRY_STAIRS,
                 Items.PALE_OAK_STAIRS,
                 Items.POPLAR_STAIRS,
-                Items.BAMBOO_STAIRS,
                 Items.CRIMSON_STAIRS,
                 Items.WARPED_STAIRS,
+                Items.BAMBOO_STAIRS
+                ));
+        WOODEN_STAIRS = List.copyOf(list);
+
+        list.clear();
+        list.addAll(List.of(
                 Items.BAMBOO_MOSAIC_STAIRS,
                 Items.STONE_STAIRS,
                 Items.COBBLESTONE_STAIRS,
@@ -317,6 +400,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         WOOL = Items.WOOL.asList();
         WOOL_STAIRS = Items.WOOL_STAIRS.asList();
+        WOOL_SLABS = Items.WOOL_SLAB.asList();
 
         CONCRETE = Items.CONCRETE.asList();
         CONCRETE_STAIRS = Items.CONCRETE_STAIRS.asList();
@@ -335,35 +419,35 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 {
                     SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_COPPER_BLOCK), RecipeCategory.MISC,
                                     CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3f,
-                                    800)
+                                    1600)
                             .group("copper_block")
                             .unlockedBy(getHasName(Items.RAW_COPPER_BLOCK), has(Items.RAW_COPPER_BLOCK))
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "copper_block_from_blasting_raw_copper_block").toString());
 
                     SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_GOLD_BLOCK), RecipeCategory.MISC,
-                                    CookingBookCategory.BLOCKS, Items.GOLD_BLOCK, 6.3f, 800)
+                                    CookingBookCategory.BLOCKS, Items.GOLD_BLOCK, 6.3f, 1600)
                             .group("gold_block")
                             .unlockedBy(getHasName(Items.RAW_GOLD_BLOCK), has(Items.RAW_GOLD_BLOCK))
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "gold_block_from_blasting_raw_gold_block").toString());
 
                     SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.RAW_IRON_BLOCK), RecipeCategory.MISC,
-                                    CookingBookCategory.BLOCKS, Items.IRON_BLOCK, 6.3f, 800)
+                                    CookingBookCategory.BLOCKS, Items.IRON_BLOCK, 6.3f, 1600)
                             .group("iron_block")
                             .unlockedBy(getHasName(Items.RAW_IRON_BLOCK), has(Items.RAW_IRON_BLOCK))
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "iron_block_from_blasting_raw_iron_block").toString());
 
                     SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.SAND), RecipeCategory.MISC,
-                                    CookingBookCategory.BLOCKS, Items.GLASS, 0.1f, 100)
+                                    CookingBookCategory.BLOCKS, Items.GLASS, 0.1f, 200)
                             .group("glass_block")
                             .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "glass_from_blasting_sand").toString());
                 }
 
-                //**** DROPPER TO DISPENSER ****//
+                //**** DROPPER DISPENSERS ****//
                 {
                     shapeless(RecipeCategory.REDSTONE, Items.DISPENSER)
                             .requires(Items.DROPPER)
@@ -401,39 +485,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             "dispenser").toString());
                 }
 
-                //**** MORE GATES ****//
+                //**** SIX STAIRS ****//
                 {
                     for (int i = 0; i < PLANKS.size(); i++)
                         new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.REDSTONE, GATES.get(i), 2)
-                                        .pattern("#W#")
-                                        .pattern("#W#")
-                                        .define('#', Items.STICK)
-                                        .define('W', PLANKS.get(i))
-                                        .group("wooden_fence_gate")
-                        ).saveWithoutAdvancement(output, GATES.get(i).toString());
-                }
-
-                //**** MORE STAIRS ****//
-                {
-                    for (int i = 0; i < PLANKS.size(); i++)
-                        new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.BUILDING_BLOCKS, STAIRS.get(i), 6)
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOODEN_STAIRS.get(i), 6)
                                         .pattern("#  ")
                                         .pattern("## ")
                                         .pattern("###")
                                         .define('#', PLANKS.get(i))
                                         .group("wooden_stairs")
-                        ).saveWithoutAdvancement(output, STAIRS.get(i).toString());
+                        ).saveWithoutAdvancement(output, WOODEN_STAIRS.get(i).toString());
 
                     for (int i = 0; i < MATERIALS.size(); i++)
                         new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.BUILDING_BLOCKS, STAIRS.get(i + PLANKS.size()), 6)
+                                shaped(RecipeCategory.BUILDING_BLOCKS, STAIRS.get(i), 6)
                                         .pattern("#  ")
                                         .pattern("## ")
                                         .pattern("###")
                                         .define('#', MATERIALS.get(i))
-                        ).saveWithoutAdvancement(output, STAIRS.get(i + PLANKS.size()).toString());
+                        ).saveWithoutAdvancement(output, STAIRS.get(i).toString());
 
                     for (int i = 0; i < CUT_COPPER.size(); i++)
                         new ShapedRecipeBuilderWrapper(
@@ -464,18 +535,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                         .define('#', CONCRETE.get(i))
                                         .group("concrete_stairs")
                         ).saveWithoutAdvancement(output, CONCRETE_STAIRS.get(i).toString());
-                }
-
-                //**** MORE WOODEN TRAPDOORS ****//
-                {
-                    for (int i = 0; i < PLANKS.size(); i++)
-                        new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.REDSTONE, WOODEN_TRAPDOORS.get(i), 6)
-                                        .pattern("###")
-                                        .pattern("###")
-                                        .define('#', PLANKS.get(i))
-                                        .group("wooden_trapdoors")
-                        ).saveWithoutAdvancement(output, WOODEN_TRAPDOORS.get(i).toString());
                 }
 
                 //**** COPPER CONSISTENCY ****//
@@ -525,31 +584,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     .pattern("##")
                                     .define('#', Items.IRON_INGOT)
                     ).saveWithoutAdvancement(output, Items.IRON_DOOR.toString());
-                }
 
-                //**** MORE WOOD ****//
-                {
-                    for (int i = 0; i < LOGS.size()/2; i++)
-                        new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
-                                        .pattern("##")
-                                        .pattern("##")
-                                        .define('#', LOGS.get(i))
-                                        .group("bark")
-                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
-
-                    for (int i = LOGS.size()/2 + 1; i < LOGS.size(); i++)
-                        new ShapedRecipeBuilderWrapper(
-                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
-                                        .pattern("##")
-                                        .pattern("##")
-                                        .define('#', LOGS.get(i))
-                                        .group("stripped")
-                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
-                }
-
-                //**** MORE CHAINS ****//
-                {
                     new ShapedRecipeBuilderWrapper(
                             shaped(RecipeCategory.DECORATIONS, Items.COPPER_CHAIN.weathering().unaffected(), 4)
                                     .pattern("N")
@@ -569,7 +604,47 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     ).saveWithoutAdvancement(output, Items.IRON_CHAIN.toString());
                 }
 
-                //**** CONSISTENCY ****//
+                //**** WASTELESS WOOD ****//
+                {
+                    for (int i = 0; i < LOGS.size()/2; i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
+                                        .pattern("##")
+                                        .pattern("##")
+                                        .define('#', LOGS.get(i))
+                                        .group("bark")
+                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
+
+                    for (int i = LOGS.size()/2; i < LOGS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), 4)
+                                        .pattern("##")
+                                        .pattern("##")
+                                        .define('#', LOGS.get(i))
+                                        .group("stripped")
+                        ).saveWithoutAdvancement(output, WOOD.get(i).toString());
+
+                    for (int i = 0; i < PLANKS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.REDSTONE, GATES.get(i), 2)
+                                        .pattern("#W#")
+                                        .pattern("#W#")
+                                        .define('#', Items.STICK)
+                                        .define('W', PLANKS.get(i))
+                                        .group("wooden_fence_gate")
+                        ).saveWithoutAdvancement(output, GATES.get(i).toString());
+
+                    for (int i = 0; i < PLANKS.size(); i++)
+                        new ShapedRecipeBuilderWrapper(
+                                shaped(RecipeCategory.REDSTONE, WOODEN_TRAPDOORS.get(i), 6)
+                                        .pattern("###")
+                                        .pattern("###")
+                                        .define('#', PLANKS.get(i))
+                                        .group("wooden_trapdoors")
+                        ).saveWithoutAdvancement(output, WOODEN_TRAPDOORS.get(i).toString());
+                }
+
+                //**** RECIPE REBALANCE ****//
                 {
                     new ShapedRecipeBuilderWrapper(
                             shaped(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_PLANKS, 4)
@@ -621,7 +696,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     ).saveWithoutAdvancement(output, Items.NETHER_WART_BLOCK.toString());
 
                     new ShapedRecipeBuilderWrapper(
-                            shaped(RecipeCategory.DECORATIONS, Items.PACKED_ICE)
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_ICE)
                                     .pattern("###")
                                     .pattern("###")
                                     .pattern("###")
@@ -708,16 +783,81 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 //**** STONECUTTER SOLUTIONS ****//
                 {
-                    for (int i = 0; i < CORALS.size(); i++)
-                        shaped(RecipeCategory.DECORATIONS, CORAL_BLOCKS.get(i))
-                                .pattern("##")
-                                .pattern("##")
-                                .define('#', CORALS.get(i))
-                                .group("coral_blocks")
-                                .unlockedBy("has_corals", has(CORALS.get(i)))
-                                .save(output, Identifier.fromNamespaceAndPath(ROCK_ID,
-                                        CORAL_BLOCKS.get(i).toString().substring(10)).toString());
+                    for (int i = 0; i < PLANKS.size(); i++) {
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOODEN_STAIRS.get(i), PLANKS.get(i));
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOODEN_SLABS.get(i), PLANKS.get(i), 2);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_TRAPDOORS.get(i), PLANKS.get(i), 2);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_PRESSURE_PLATES.get(i), PLANKS.get(i), 2);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_BUTTONS.get(i), PLANKS.get(i), 4);
+                    }
+
+                    for (int i = 0; i < WOOD_LOGS.size(); i++) {
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, PLANKS.get(i), WOOD_LOGS.get(i), 4);
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOODEN_STAIRS.get(i), WOOD_LOGS.get(i), 4);
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOODEN_SLABS.get(i), WOOD_LOGS.get(i), 8);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_TRAPDOORS.get(i), WOOD_LOGS.get(i), 8);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_PRESSURE_PLATES.get(i), WOOD_LOGS.get(i), 8);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, WOODEN_BUTTONS.get(i), WOOD_LOGS.get(i), 16);
+                    }
+
+                    for (int i = 0; i < LOGS.size(); i++) {
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), LOGS.get(i), 1);
+                    }
+
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_PLANKS, ItemTags.BAMBOO_BLOCKS, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_STAIRS, ItemTags.BAMBOO_BLOCKS, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_SLAB, ItemTags.BAMBOO_BLOCKS, 4);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.BAMBOO_TRAPDOOR, ItemTags.BAMBOO_BLOCKS, 4);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.BAMBOO_PRESSURE_PLATE, ItemTags.BAMBOO_BLOCKS, 4);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.BAMBOO_BUTTON, ItemTags.BAMBOO_BLOCKS, 8);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC, ItemTags.BAMBOO_BLOCKS, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_STAIRS, ItemTags.BAMBOO_BLOCKS, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_SLAB, ItemTags.BAMBOO_BLOCKS, 4);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_STAIRS, Items.BAMBOO_MOSAIC);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_SLAB, Items.BAMBOO_MOSAIC, 2);
+
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.STONE_PRESSURE_PLATE, Items.STONE, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.STONE_BUTTON, Items.STONE, 4);
+
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_BUTTON, Items.POLISHED_BLACKSTONE, 4);
+
+                    for (int i = 0; i < COPPER.size(); i++) {
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, COPPER_TRAPDOORS.get(i), COPPER.get(i), 3);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, COPPER_BARS.get(i), COPPER.get(i), 24);
+                        stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, LIGHTNING_RODS.get(i), COPPER.get(i), 3);
+                    }
+
+                    for (int i = 0; i < WOOL.size(); i++) {
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOOL_STAIRS.get(i), WOOL.get(i));
+                        stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOOL_SLABS.get(i), WOOL.get(i), 2);
+                    }
                 }
+            }
+
+            public void stonecutterCustomResultFromBase(final RecipeCategory category, final ItemLike result, final ItemLike base, final int count) {
+                SingleItemRecipeBuilder builder = SingleItemRecipeBuilder
+                        .stonecutting(Ingredient.of(base), category, result, count)
+                        .unlockedBy(getHasName(base), this.has(base));
+                String recipeId = getConversionRecipeName(result, base) + "_stonecutting";
+                builder.save(this.output, STONECUTTER_ID + ":" + recipeId);
+            }
+
+            public void stonecutterCustomResultFromBase(final RecipeCategory category, final ItemLike result, final ItemLike base) {
+                stonecutterCustomResultFromBase(category, result, base, 1);
+            }
+
+            public void stonecutterCustomResultFromBase(RecipeCategory category, ItemLike result, TagKey<Item> tag, int count) {
+                HolderLookup.RegistryLookup<Item> itemLookup = registries.lookupOrThrow(Registries.ITEM);
+                HolderSet<Item> holderSet = itemLookup.getOrThrow(tag);
+                Ingredient ingredient = Ingredient.of(holderSet);
+
+                SingleItemRecipeBuilder builder = SingleItemRecipeBuilder
+                        .stonecutting(ingredient, category, result, count)
+                        .unlockedBy("has_" + tag.location().getPath(), this.has(tag));
+
+                String recipeId = result.asItem().toString().substring(10) + "_from_" + tag.location().getPath() + "_stonecutting";
+                builder.save(this.output, STONECUTTER_ID + ":" + recipeId);
             }
         };
     }
