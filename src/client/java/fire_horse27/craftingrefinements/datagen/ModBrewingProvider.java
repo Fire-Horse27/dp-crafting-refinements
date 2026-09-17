@@ -27,7 +27,7 @@ public class ModBrewingProvider extends BrewingProvider {
 
     @Override
     protected void buildMixes() {
-        buildMix(Potions.AWKWARD, Items.TURTLE_SCUTE, Potions.TURTLE_MASTER, "awkward", "turtle_shell");
+        buildMix(Potions.AWKWARD, Items.TURTLE_SCUTE, Potions.TURTLE_MASTER, "awkward", "turtle_helmet");
         buildMix(Potions.AWKWARD, Items.SLIME_BALL, Potions.OOZING, "awkward", "slime_block");
         buildMix(Potions.AWKWARD, Items.FLINT, Potions.INFESTED, "awkward", "stone");
         buildMix(Potions.WATER, Items.SLIME_BALL, Potions.MUNDANE, "water", "slime_block");
