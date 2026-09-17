@@ -440,10 +440,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "iron_block_from_blasting_raw_iron_block").toString());
 
-                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.SAND), RecipeCategory.MISC,
+                    SimpleCookingRecipeBuilder.blasting(Ingredient.of(itemLookup.getOrThrow(ItemTags.SMELTS_TO_GLASS)), RecipeCategory.MISC,
                                     CookingBookCategory.BLOCKS, Items.GLASS, 0.1f, 200)
                             .group("glass_block")
-                            .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
+                            .unlockedBy(getHasName(Items.SAND), has(ItemTags.SMELTS_TO_GLASS))
                             .save(output, Identifier.fromNamespaceAndPath(BLAST_BUFF_ID,
                                     "glass_from_blasting_sand").toString());
                 }
