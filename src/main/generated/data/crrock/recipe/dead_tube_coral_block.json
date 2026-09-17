@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "coral_blocks",
+  "key": {
+    "#": "#crrock:dead_tube_corals"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "id": "minecraft:dead_tube_coral_block"
+  }
+}

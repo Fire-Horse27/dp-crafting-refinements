@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "coral_blocks",
+  "key": {
+    "#": "#crrock:dead_bubble_corals"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "id": "minecraft:dead_bubble_coral_block"
+  }
+}

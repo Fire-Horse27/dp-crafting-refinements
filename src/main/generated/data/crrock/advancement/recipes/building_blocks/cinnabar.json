@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherrack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherrack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sulfur_spike": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sulfur_spike"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "crrock:cinnabar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherrack",
+      "has_sulfur_spike"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "crrock:cinnabar"
+    ]
+  }
+}

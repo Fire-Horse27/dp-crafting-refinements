@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_poplar_logs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:poplar_logs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "crstonecutter:poplar_planks_from_poplar_logs_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_poplar_logs"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "crstonecutter:poplar_planks_from_poplar_logs_stonecutting"
+    ]
+  }
+}

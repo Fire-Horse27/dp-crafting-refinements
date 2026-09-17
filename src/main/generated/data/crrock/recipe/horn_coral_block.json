@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "coral_blocks",
+  "key": {
+    "#": "#crrock:horn_corals"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "id": "minecraft:horn_coral_block"
+  }
+}
