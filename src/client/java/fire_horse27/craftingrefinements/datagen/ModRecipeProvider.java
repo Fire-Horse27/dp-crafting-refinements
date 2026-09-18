@@ -813,6 +813,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, WOOD.get(i), LOGS.get(i), 1);
                     }
 
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC, Items.BAMBOO_PLANKS);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_STAIRS, Items.BAMBOO_PLANKS);
+                    stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_MOSAIC_SLAB, Items.BAMBOO_PLANKS, 2);
                     stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_PLANKS, ItemTags.BAMBOO_BLOCKS, 2);
                     stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_STAIRS, ItemTags.BAMBOO_BLOCKS, 2);
                     stonecutterCustomResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.BAMBOO_SLAB, ItemTags.BAMBOO_BLOCKS, 4);
@@ -828,6 +831,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.STONE_PRESSURE_PLATE, Items.STONE, 2);
                     stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.STONE_BUTTON, Items.STONE, 4);
 
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE, Items.BLACKSTONE, 2);
+                    stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_BUTTON, Items.BLACKSTONE, 4);
                     stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE, 2);
                     stonecutterCustomResultFromBase(RecipeCategory.REDSTONE, Items.POLISHED_BLACKSTONE_BUTTON, Items.POLISHED_BLACKSTONE, 4);
 
