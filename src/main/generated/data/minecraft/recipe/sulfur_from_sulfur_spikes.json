@@ -1,14 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "sulfur",
   "key": {
-    "#": "minecraft:sulfur"
+    "#": "minecraft:sulfur_spike"
   },
   "pattern": [
     "##",
     "##"
   ],
   "result": {
-    "id": "minecraft:potent_sulfur"
+    "id": "minecraft:sulfur"
   }
 }

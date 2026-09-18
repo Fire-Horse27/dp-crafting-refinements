@@ -682,12 +682,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     .define('X', Items.STICK)
                     ).saveWithoutAdvancement(output, Items.REDSTONE_TORCH.toString());
 
+                    shapeless(RecipeCategory.BUILDING_BLOCKS, Items.SULFUR, 9)
+                            .requires(Items.POTENT_SULFUR)
+                            .unlockedBy(getHasName(Items.POTENT_SULFUR), has(Items.POTENT_SULFUR))
+                            .group("sulfur")
+                            .save(output, Identifier.fromNamespaceAndPath(CONSISTENCY_ID,
+                                    "sulfur").toString());
+
                     new ShapedRecipeBuilderWrapper(
-                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.POTENT_SULFUR)
+                            shaped(RecipeCategory.BUILDING_BLOCKS, Items.SULFUR)
                                     .pattern("##")
                                     .pattern("##")
-                                    .define('#', Items.SULFUR)
-                    ).saveWithoutAdvancement(output, Items.POTENT_SULFUR.toString());
+                                    .define('#', Items.SULFUR_SPIKE)
+                                    .group("sulfur")
+                    ).saveWithoutAdvancement(output, "minecraft:sulfur_from_sulfur_spikes");
 
                     new ShapedRecipeBuilderWrapper(
                             shaped(RecipeCategory.BUILDING_BLOCKS, Items.NETHER_WART_BLOCK)

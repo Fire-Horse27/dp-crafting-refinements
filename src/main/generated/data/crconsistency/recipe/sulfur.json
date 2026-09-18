@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "sulfur",
+  "ingredients": [
+    "minecraft:potent_sulfur"
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:sulfur"
+  }
+}
