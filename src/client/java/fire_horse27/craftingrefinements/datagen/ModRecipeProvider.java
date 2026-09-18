@@ -771,7 +771,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     .define('#', Items.RED_SAND)
                     ).saveWithoutAdvancement(output, Items.RED_SANDSTONE.toString());
 
-                    shaped(RecipeCategory.BUILDING_BLOCKS, Items.CALCITE, 2)
+                    shaped(RecipeCategory.BUILDING_BLOCKS, Items.CALCITE, 4)
                             .pattern("##")
                             .pattern("##")
                             .define('#', ModItemTagProvider.DEAD_CORAL_BLOCKS)
